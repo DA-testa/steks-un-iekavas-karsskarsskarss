@@ -1,3 +1,4 @@
+##Artūrs Jānis Karss 211REC029 IT 1.GRUPA
 from collections import namedtuple
 
 Bracket = namedtuple("Bracket", ["char", "position"])
