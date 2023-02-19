@@ -1,28 +1,25 @@
+# python3
+
 from collections import namedtuple
-from typing import List, Union
 
-Bracket = namedtuple("Bracket",["char", "position"])
-
-def are_matching(left: str, right: str) -> bool:
+Bracket = namedtuple("Bracket", ["char", "position"])
+ def are_matching(left: str, right: str) -> bool:
     return (left + right) in ["()", "[]", "{}"]
 
 def find_mismatch(text: str) -> Union[str, int]:
-    def recurse(i: int, stack: List[Bracket]) -> Union[str, int]:
-        if not text:
-            return 'Success'
-        elif text[0] in "([{":
-            return recurse(i+1, [(text[0], i)] + stack)
-        elif text[0] in ")]}":
-            if not stack:
+    opening_brackets_stack = []
+    for i, char in enumerate(text):
+        if char in "([{":
+            opening_brackets_stack.append((char, i))
+        elif char in ")]}":
+            if not opening_brackets_stack:
                 return i + 1
-            last_open = stack[0]
-            if not are_matching(last_open[0], text[0]):
+            last_open = opening_brackets_stack.pop()
+            if not are_matching(last_open[0], char):
                 return i + 1
-            else:
-                return recurse(i+1, stack[1:])
-        else:
-            return recurse(i+1, stack)
-    return recurse(0, [])
+    if opening_brackets_stack:
+        return opening_brackets_stack[0][1] + 1
+    return 'Success'
 
 def main() -> None:
     input_choice = input("Ievadiet F vai I: ")
@@ -44,7 +41,6 @@ def main() -> None:
             print(mismatch)
     else:
         print("Invalid input choice.")
-
 
 if __name__ == "__main__":
     main()
