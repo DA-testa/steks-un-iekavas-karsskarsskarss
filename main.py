@@ -33,26 +33,17 @@ def find_mismatch(text):
 
 
 def main():
-    input_choice = input("Ievadiet F vai I: ")
-    if "F" in input_choice:
-        file_path = input("Ievadiet ceļu lidz failam: ")
-        with open(file_path, "r") as f:
-            text = f.read()
-            mismatch = find_mismatch(text)
-            if mismatch == 'Success':
-                print("Success")
-            else:
+    text = input()
+    if"F" in text:
+        for i in range(6):
+            with open(f"test/{i}") as f:
+                text = f.read()
+                mismatch = find_mismatch(text)
                 print(mismatch)
-    elif "I" in input_choice:
-        text = input()
-        mismatch = find_mismatch(text)
-        if mismatch == 'Success':
-            print("Success")
-        else:
-            print(mismatch)
-    else:
-        print("Invalid input choice.")
-
+                if "I" in text:
+                    text = input()
+                    mismatch = find_mismatch(text)
+                    print(mismatch)
 
 if __name__ == "__main__":
     main()
